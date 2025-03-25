@@ -1,6 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
 
-from todo_project import app, db, bcrypt
+from todo_project import app, db, bcrypt, logger
 
 # Import the forms
 from todo_project.forms import (LoginForm, RegistrationForm, UpdateUserInfoForm, 
@@ -38,23 +38,24 @@ def login():
         return redirect(url_for('all_tasks'))
 
     form = LoginForm()
-    # After you submit the form
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
-        # Check if the user exists and the password is valid
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user)
-            task_form = TaskForm()
-            flash('Login Successfull', 'success')
+            logger.info(f"Usuário {user.username} autenticado com sucesso.")  # 🔥 Log de sucesso
+            flash('Login realizado com sucesso', 'success')
             return redirect(url_for('all_tasks'))
         else:
-            flash('Login Unsuccessful. Please check Username Or Password', 'danger')
-    
+            logger.warning(f"Tentativa de login falhou para o usuário {form.username.data}")  # 🔥 Log de falha
+            flash('Login falhou. Verifique usuário e senha', 'danger')
+
     return render_template('login.html', title='Login', form=form)
+
     
 
 @app.route("/logout")
 def logout():
+    logger.info(f"Usuário {current_user.username} fez logout.")  # 🔥 Log de logout
     logout_user()
     return redirect(url_for('login'))
 
@@ -84,16 +85,17 @@ def all_tasks():
 
 
 @app.route("/add_task", methods=['POST', 'GET'])
-@login_required
+@login_required  # ✅ Garantindo que apenas usuários logados possam acessar
 def add_task():
     form = TaskForm()
     if form.validate_on_submit():
         task = Task(content=form.task_name.data, author=current_user)
         db.session.add(task)
         db.session.commit()
-        flash('Task Created', 'success')
+        logger.info(f"Tarefa criada pelo usuário {current_user.username}: {task.content}")  # 🔥 Log de criação de tarefa
+        flash('Tarefa criada com sucesso', 'success')
         return redirect(url_for('add_task'))
-    return render_template('add_task.html', form=form, title='Add Task')
+    return render_template('add_task.html', form=form, title='Adicionar Tarefa')
 
 
 @app.route("/all_tasks/<int:task_id>/update_task", methods=['GET', 'POST'])
