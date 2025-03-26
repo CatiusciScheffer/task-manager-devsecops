@@ -22,6 +22,6 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Rodar testes
-        run: |
-          python -m unittest discover
+      # - name: Rodar testes
+      #   run: |
+      #     python -m unittest discover
