@@ -4,11 +4,13 @@ from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
 import logging
 import sys
+import os
 
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '45cf93c4d41348cd9980674ade9a7356'
+
+app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret-key")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 
 # Configurar logging para syslog

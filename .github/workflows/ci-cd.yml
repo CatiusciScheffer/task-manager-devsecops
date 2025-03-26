@@ -25,6 +25,11 @@ jobs:
         run: |
           python -c "from todo_project import app, db; app.app_context().push(); db.create_all()"
 
+
+      - name: Definir variáveis de ambiente
+        run: echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
+        
+        
       - name: Rodar análise de segurança com Bandit
         run: |
           pip install bandit

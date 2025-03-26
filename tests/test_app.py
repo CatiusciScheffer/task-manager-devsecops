@@ -1,5 +1,5 @@
 import unittest
-from todo_project import app, db
+from todo_project import app, db, bcrypt
 from todo_project.models import User
 
 class BasicTests(unittest.TestCase):
@@ -20,7 +20,9 @@ class BasicTests(unittest.TestCase):
     # Teste de criação de usuário
     def test_create_user(self):
         with app.app_context():
-            user = User(username="testuser", password="hashedpassword")
+            # user = User(username="testuser", password="hashedpassword")
+            hashed_password = bcrypt.generate_password_hash("testpassword").decode("utf-8")
+            user = User(username="testuser", password=hashed_password)
             db.session.add(user)
             db.session.commit()
 
