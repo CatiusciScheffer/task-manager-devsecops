@@ -78,7 +78,7 @@ def register():
 
 
 @app.route("/all_tasks")
-@login_required
+@login_required  # ✅ Garantindo que apenas usuários logados possam acessar
 def all_tasks():
     tasks = User.query.filter_by(username=current_user.username).first().tasks
     return render_template('all_tasks.html', title='All Tasks', tasks=tasks)
@@ -99,7 +99,7 @@ def add_task():
 
 
 @app.route("/all_tasks/<int:task_id>/update_task", methods=['GET', 'POST'])
-@login_required
+@login_required  # ✅ Garantindo que apenas usuários logados possam acessar
 def update_task(task_id):
     task = Task.query.get_or_404(task_id)
     form = UpdateTaskForm()
@@ -118,7 +118,7 @@ def update_task(task_id):
 
 
 @app.route("/all_tasks/<int:task_id>/delete_task")
-@login_required
+@login_required  # ✅ Garantindo que apenas usuários logados possam acessar
 def delete_task(task_id):
     task = Task.query.get_or_404(task_id)
     db.session.delete(task)
