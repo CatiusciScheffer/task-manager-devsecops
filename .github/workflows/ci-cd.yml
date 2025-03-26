@@ -25,6 +25,19 @@ jobs:
         run: |
           python -c "from todo_project import app, db; app.app_context().push(); db.create_all()"
 
+      - name: Rodar análise de segurança com Bandit
+        run: |
+          pip install bandit
+          bandit -r .
+
+      - name: Verificar dependências vulneráveis (OWASP Dependency-Check)
+        run: |
+          curl -L -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/download/v8.2.1/dependency-check-8.2.1-release.zip
+          unzip dependency-check.zip
+          chmod +x dependency-check/bin/dependency-check.sh
+          dependency-check/bin/dependency-check.sh --scan . --format HTML --out dependency-report.html
+
+
       - name: Rodar testes
         run: |
           python -m unittest discover -s tests -p "test_*.py"
