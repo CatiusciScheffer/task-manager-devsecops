@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
@@ -22,6 +21,15 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      # - name: Rodar testes
-      #   run: |
-      #     python -m unittest discover
+      - name: Criar banco de dados
+        run: |
+          python -c "from todo_project import app, db; app.app_context().push(); db.create_all()"
+
+      - name: Rodar testes
+        run: |
+          python -m unittest discover -s tests -p "test_*.py"
+
+      - name: Construir imagem Docker
+        run: |
+          docker build -t minha-aplicacao:${{ github.sha }} .
+          docker tag minha-aplicacao:${{ github.sha }} minha-aplicacao:latest
