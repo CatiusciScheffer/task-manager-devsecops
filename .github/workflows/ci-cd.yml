@@ -28,7 +28,7 @@ jobs:
 
       - name: Definir variáveis de ambiente
         run: echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
-        
+
         
       - name: Rodar análise de segurança com Bandit
         run: |
@@ -40,7 +40,7 @@ jobs:
           curl -L -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/download/v8.2.1/dependency-check-8.2.1-release.zip
           unzip dependency-check.zip
           chmod +x dependency-check/bin/dependency-check.sh
-          dependency-check/bin/dependency-check.sh --scan . --format HTML --out dependency-report.html
+          dependency-check/bin/dependency-check.sh --scan . --disableAssembly --format HTML --out dependency-report.html
 
 
       - name: Rodar testes
