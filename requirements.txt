@@ -47,6 +47,7 @@ packaging==24.1
 pandas==2.2.3
 parso==0.8.4
 pillow==10.4.0
+prometheus-flask-exporter==0.23.2
 prompt_toolkit==3.0.47
 proxy_tools==0.1.0
 pure_eval==0.2.3
