@@ -1,0 +1,53 @@
+commit 8cb44931af94129774e52df1fe5563cbecaa1b51
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Wed Mar 26 20:24:53 2025 -0300
+
+    Corrigindo erro do OWASP Dependency-Check no .NET Analyzer
+
+commit 14a32305a22c905d007e0b6290034ea04e120fdd
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Wed Mar 26 20:14:49 2025 -0300
+
+    Corrigindo vulnerabilidades identificadas pelo Bandit
+
+commit 9e970422e6d3a71a3c203dff80e0bd56c4a3f397
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Wed Mar 26 19:57:15 2025 -0300
+
+    Adicionando SAST ao pipeline
+
+commit a16c23cb25c6531e73b2714083c60609aa3dfa5d
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Wed Mar 26 19:22:49 2025 -0300
+
+    Adicionando testes e pipeline CI/CD
+
+commit c9cc44dfc9042d42b53b3650aeb605ed19bed0c8
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Wed Mar 26 09:04:02 2025 -0300
+
+    erro em testes
+
+commit 76d207802f2312c2d198c173a162e36e0b580d24
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Wed Mar 26 08:45:09 2025 -0300
+
+    Adicionando pipeline de CI/CD
+
+commit e29017a8e12c1a9568172f00cbf3ad3b9d772d5b
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Tue Mar 25 22:21:47 2025 -0300
+
+    criada e executada a imagem Docker
+
+commit d9584096868fbfd6d75c1cbd416a7e99083c0597
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Tue Mar 25 20:29:39 2025 -0300
+
+    implementação dos logs
+
+commit 893b1d7a06caf42018197294bb4aea64d89ae32f
+Author: Catiusci Scheffer <cpcscheffer@outlook.com>
+Date:   Tue Mar 25 19:24:17 2025 -0300
+
+    iniciando estudo de caso

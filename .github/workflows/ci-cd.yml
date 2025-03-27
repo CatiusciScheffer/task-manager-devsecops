@@ -29,12 +29,31 @@ jobs:
       - name: Definir variáveis de ambiente
         run: echo "SECRET_KEY=${{ secrets.SECRET_KEY }}" >> $GITHUB_ENV
 
-        
+
+      - name: Rodar aplicação Flask
+        run: |
+          python run.py &
+          sleep 10 # Aguarda a aplicação subir
+          
+          
       - name: Rodar análise de segurança com Bandit
         run: |
           pip install bandit
           bandit -r .
 
+
+      - name: Rodar OWASP ZAP
+        run: |
+            docker run -v $(pwd):/zap/wrk/ -u zap owasp/zap2docker-stable zap.sh -cmd \
+            -quickurl http://localhost:8080 \
+            -quickout /zap/wrk/zap-report.html
+
+
+      - name: Salvar Relatório
+        run: |
+            mv zap-report.html ./reports/ 
+            
+            
       - name: Verificar dependências vulneráveis (OWASP Dependency-Check)
         run: |
           curl -L -o dependency-check.zip https://github.com/jeremylong/DependencyCheck/releases/download/v8.2.1/dependency-check-8.2.1-release.zip

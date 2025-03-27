@@ -32,6 +32,23 @@ def about():
     return render_template('about.html', title='About')
 
 
+@app.after_request
+def add_headers(response):
+    response.headers["X-Frame-Options"] = "DENY"
+    return response
+
+
+@app.after_request
+def add_headers(response):
+    response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
+
+
+@app.after_request
+def add_headers(response):
+    response.headers["Content-Security-Policy"] = "default-src 'self'; script-src 'self'"
+    return response
+
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:

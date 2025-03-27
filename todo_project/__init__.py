@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from prometheus_flask_exporter import PrometheusMetrics
 import logging
 import sys
 import os
@@ -12,6 +13,11 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "default-secret-key")
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = True
+# Inicializando o Prometheus Metrics
+metrics = PrometheusMetrics(app)
+
 
 # Configurar logging para syslog
 logging.basicConfig(level=logging.INFO,
